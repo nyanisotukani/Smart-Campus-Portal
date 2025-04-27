@@ -1,0 +1,101 @@
+/* Timetable Container */
+.timetable-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+  }
+  
+  /* Day Row Layout */
+  .day-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    background-color: #fff; /* White background for rows */
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Day Label (Monday, Tuesday...) */
+  .day-label {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333;
+    text-transform: uppercase;
+    min-width: 100px;
+  }
+  
+  /* Classes Row - Horizontal Flex Layout */
+  .classes-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* align to the left */
+  }
+  
+  /* Individual Class Card */
+  .class-item {
+    background-color: #f5f7fa;
+    padding: 1rem;
+    border-radius: 8px;
+    min-width: 180px;
+    max-width: 250px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Hover Effect for Class Item */
+  .class-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Class Time Styling */
+  .class-time {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Class Subject Styling */
+  .class-subject {
+    font-size: 1rem;
+    color: #222;
+    font-weight: 600;
+  }
+  
+  /* "No Classes" Card */
+  .no-classes {
+    background: #fff7d4;
+    color: #a67c00;
+    border: 1px dashed #ffd700;
+    padding: 1rem;
+    border-radius: 8px;
+    min-width: 180px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Day Label (Spacing & Color) */
+  .day-label {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    font-weight: bold;
+  }
+  
+  /* General Layout Padding */
+  .day-row {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+  
+  /* Use a light background color for overall grid */
+  body {
+    background-color: #f4f7fc;
+  }
+  

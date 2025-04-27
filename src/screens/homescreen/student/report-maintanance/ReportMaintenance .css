@@ -1,0 +1,118 @@
+/* --- Main Form Styling --- */
+.maintenance-form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px 40px;
+    background: linear-gradient(to right, #ffffff, #f9f9f9);
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 16px;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    background: #fff;
+    transition: all 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+  }
+  
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+  
+  /* --- Submit Button Styling --- */
+  .submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .submit-btn:hover {
+    background: #0056b3;
+  }
+  
+  /* --- Popup Styling --- */
+  .popup {
+    position: fixed;
+    top: 25%;
+    left: 35%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .popup-content {
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .popup-content h2 {
+    color: #28a745;
+    margin-bottom: 10px;
+  }
+  
+  .popup-content p {
+    color: #555;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  
+  /* --- Close Button in Popup --- */
+  .close-btn {
+    padding: 12px 24px;
+    background: #28a745;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .close-btn:hover {
+    background: #218838;
+  }
+  
+  /* --- Make sure body does not scroll when popup is open --- */
+  body.popup-open {
+    overflow: hidden;
+  }
+  
