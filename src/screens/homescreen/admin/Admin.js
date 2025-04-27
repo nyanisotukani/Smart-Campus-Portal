@@ -1,9 +1,10 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import AdminDashboard from './admin-dashboard/AdminDashboard';
 
 const Admin = () => {
-    const { state } = useLocation();
-    return <h2>{state.name}, you logged in as an Admin</h2>;
+    return(
+        <AdminDashboard/>
+    )
 };
 
 export default Admin;
