@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import './StudentDashboard.css'; // Assuming you have a CSS file for styling
-const StudentDashboard = () => {
+import './LecturerDashboard.css'; // Assuming you have a CSS file for styling
+const LecturerDashboard = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const currentDate = new Date().toLocaleDateString('en-US', {
@@ -33,6 +33,10 @@ const StudentDashboard = () => {
         <a href="#booking">Room Booking</a>
       </li>
       <li>
+        <img src="https://img.icons8.com/?size=100&id=qvUK2KCJbwJa&format=png&color=000000" alt="Post Announcements" className='icon' />
+        <a href="#booking">Post Announcements</a>
+      </li>
+      <li>
         <img src="https://img.icons8.com/?size=100&id=116946&format=png&color=000000" alt="Report Maintenance" className='icon' />
         <a href="#maintenance">Report Maintenance</a>
       </li>
@@ -57,15 +61,15 @@ const StudentDashboard = () => {
         <div className='heading'>
             <h1> Smart Campus Services Portal</h1>
             <div className='student-info'>
-                <h2>{state?.name || "Student"}</h2>
-                <p>Student</p>
+                <h2>{state?.name || "Lecturer"}</h2>
+                <p>Lecturer</p>
             </div>
         </div>
         <section className='welcome-section'>
           <div className='welcome-text'>
             <h4 className='date'>{currentDate}</h4>
-            <h1>Welcome back, {state?.name || "Student"}!</h1>
-            <p>Always stay updated in your student portal.</p>
+            <h1>Welcome back, {state?.name || "Lecturer"}!</h1>
+            <p>Always stay updated in your teaching portal.</p>
           </div>
           <img src="../images/welcome.png" alt="Welcome" className='welcome-image'/>
         </section>
@@ -76,19 +80,24 @@ const StudentDashboard = () => {
             <div className='widget'>
                 <h3>📅 Timetable</h3>
                 <p>View your class schedule for the week.</p>
-                <button  onClick={() => navigate('/student-timetable')}>View Timetable</button>
+                <button  onClick={() => navigate('/lecturer-timetable')}>View Timetable</button>
             </div>
 
             <div className='widget'>
                 <h3>🏠 Room Booking</h3>
                 <p>Book study rooms and appointments easily.</p>
-                <button onClick={() => navigate('/room-booking')}>Book Now</button>
+                <button onClick={() => navigate('/lecturer-room-booking')}>Book Now</button>
             </div>
 
             <div className='widget'>
                 <h3>🛠️ Report Maintenance</h3>
                 <p>Raise any issues with campus facilities.</p>
-                <button onClick={() => navigate('/report-maintanance')}>Report Issue</button>
+                <button onClick={() => navigate('/lecturer-report-maintanance')}>Report Issue</button>
+            </div>
+            <div className='widget'>
+                <h3>🛠️ Post Announcements</h3>
+                <p>Share important updates with your students.</p>
+                <button onClick={() => navigate('/post-announcements')}>Post Announcements</button>
             </div>
  
             <div className='widget'>
@@ -107,4 +116,4 @@ const StudentDashboard = () => {
   );
 };
 
-export default StudentDashboard;
+export default LecturerDashboard;

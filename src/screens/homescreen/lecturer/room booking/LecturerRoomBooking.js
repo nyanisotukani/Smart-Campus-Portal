@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../student-dashboard/StudentDashboard.css';
-import './RoomBooking.css'; 
-
-const RoomBooking = () => {
+import '../../student/student-dashboard/StudentDashboard.css';
+import './LecturerRoomBooking.css'; // Assuming you have a CSS file for styling
+const LecturerRoomBooking = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const currentDate = new Date().toLocaleDateString('en-US', {
@@ -72,6 +71,10 @@ const RoomBooking = () => {
         <a href="#booking">Room Booking</a>
       </li>
       <li>
+        <img src="https://img.icons8.com/?size=100&id=qvUK2KCJbwJa&format=png&color=000000" alt="Post Announcements" className='icon' />
+        <a href="#booking">Post Announcements</a>
+      </li>
+      <li>
         <img src="https://img.icons8.com/?size=100&id=116946&format=png&color=000000" alt="Report Maintenance" className='icon' />
         <a href="#maintenance">Report Maintenance</a>
       </li>
@@ -96,8 +99,8 @@ const RoomBooking = () => {
         <div className='heading'>
             <h1> Smart Campus Services Portal</h1>
             <div className='student-info'>
-                <h2>{state?.name || "Student"}</h2>
-                <p>Student</p>
+                <h2>{state?.name || "Lecturer"}</h2>
+                <p>Lecturer</p>
             </div>
         </div>
         <section className='welcome-section'>
@@ -152,4 +155,4 @@ const RoomBooking = () => {
   );
 };
 
-export default RoomBooking;
+export default LecturerRoomBooking;

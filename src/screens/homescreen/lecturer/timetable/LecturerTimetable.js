@@ -1,14 +1,37 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import './StudentDashboard.css'; // Assuming you have a CSS file for styling
-const StudentDashboard = () => {
+import '../../student/student-dashboard/StudentDashboard.css'
+import '../../student/timetable/TimetableWidget.css'; // Assuming you have a CSS file for styling
+const LecturerTimetable = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const currentDate = new Date().toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
-  });
+  })
+
+
+  const timetableData = [
+    { day: 'Monday', classes: [
+      { time: '08:00 - 10:00', subject: 'Software Engineering' },
+      { time: '10:30 - 12:00', subject: 'Software Engineering' },
+      
+    ]},
+    { day: 'Tuesday', classes: [
+      { time: '09:00 - 11:00', subject: 'Software Engineering' },
+      { time: '13:00 - 14:30', subject: 'Software Engineering' }
+    ]},
+    { day: 'Wednesday', classes: [] }, // No classes
+    { day: 'Thursday', classes: [
+      { time: '09:00 - 10:30', subject: 'Software Engineering' },
+      
+    ]},
+    { day: 'Friday', classes: [
+      { time: '08:00 - 09:30', subject: 'Software Engineering' },
+      { time: '10:00 - 11:30', subject: 'Software Engineering' }
+    ]},
+  ];
   
 
   return (
@@ -31,6 +54,10 @@ const StudentDashboard = () => {
       <li>
         <img src="https://img.icons8.com/?size=100&id=8080&format=png&color=000000" alt="Room Booking" className='icon' />
         <a href="#booking">Room Booking</a>
+      </li>
+      <li>
+        <img src="https://img.icons8.com/?size=100&id=qvUK2KCJbwJa&format=png&color=000000" alt="Post Announcements" className='icon' />
+        <a href="#booking">Post Announcements</a>
       </li>
       <li>
         <img src="https://img.icons8.com/?size=100&id=116946&format=png&color=000000" alt="Report Maintenance" className='icon' />
@@ -57,49 +84,41 @@ const StudentDashboard = () => {
         <div className='heading'>
             <h1> Smart Campus Services Portal</h1>
             <div className='student-info'>
-                <h2>{state?.name || "Student"}</h2>
-                <p>Student</p>
+                <h2>{state?.name || "Lecturer"}</h2>
+                <p>Lecturer</p>
             </div>
         </div>
         <section className='welcome-section'>
           <div className='welcome-text'>
             <h4 className='date'>{currentDate}</h4>
-            <h1>Welcome back, {state?.name || "Student"}!</h1>
-            <p>Always stay updated in your student portal.</p>
+            <h1>Weekly Class Timetable</h1>
+            <p>Stay organized and keep track of your weekly schedule.</p>
           </div>
           <img src="../images/welcome.png" alt="Welcome" className='welcome-image'/>
         </section>
 
         <section className='dashboard-widgets'>
-          {/* Future dashboard content goes here */}
-          <section className='dashboard-widgets'>
-            <div className='widget'>
-                <h3>📅 Timetable</h3>
-                <p>View your class schedule for the week.</p>
-                <button  onClick={() => navigate('/student-timetable')}>View Timetable</button>
+        {/* Future dashboard content goes here */}
+        <div className="timetable-grid">
+          {timetableData.map((day, index) => (
+            <div key={index} className="day-row">
+              <div className="day-label">{day.day}</div>
+              <div className="classes-row">
+                {day.classes.length === 0 ? (
+                  <div className="no-classes">No Classes 🎉</div>
+                ) : (
+                  day.classes.map((cls, idx) => (
+                    <div key={idx} className="class-item">
+                      <div className="class-time">{cls.time}</div>
+                      <div className="class-subject">{cls.subject}</div>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
+          ))}
+        </div>
 
-            <div className='widget'>
-                <h3>🏠 Room Booking</h3>
-                <p>Book study rooms and appointments easily.</p>
-                <button onClick={() => navigate('/room-booking')}>Book Now</button>
-            </div>
-
-            <div className='widget'>
-                <h3>🛠️ Report Maintenance</h3>
-                <p>Raise any issues with campus facilities.</p>
-                <button onClick={() => navigate('/report-maintanance')}>Report Issue</button>
-            </div>
- 
-            <div className='widget'>
-                <h3>🔔 Notifications</h3>
-                <p>Stay updated with the latest campus news.</p>
-                <ul>
-                <li>No new notifications.</li>
-                </ul>
-            </div>
-            
-            </section>
 
         </section>
       </main>
@@ -107,4 +126,4 @@ const StudentDashboard = () => {
   );
 };
 
-export default StudentDashboard;
+export default LecturerTimetable;

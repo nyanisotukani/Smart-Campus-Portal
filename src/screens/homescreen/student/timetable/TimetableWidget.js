@@ -9,7 +9,7 @@ const TimetableWidget = () => {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
-  });
+  })
 
 
   const timetableData = [
