@@ -61,46 +61,42 @@ const PostAnnouncements = () => {
     <div className='dashboard-container'>
       {/* Sidebar */}
       <aside className='sidebar'>
-        <div className='sidebar-header'>
-          <img src="https://via.placeholder.com/150" alt="Logo" className='logo' />
-        </div>
-        <nav className='sidebar-nav'>
+  <div className='sidebar-header'>
+    <img src="https://via.placeholder.com/150" alt="Logo" className='logo' />
+  </div>
+  <nav className='sidebar-nav'>
     <ul>
       <li>
         <img src="../images/dashboard.png" alt="Dashboard" className='icon' />
-        <a href="#dashboard">Dashboard</a>
+        <button onClick={() => navigate("/lecturer")} className="sidebar-btn">Dashboard</button>
       </li>
       <li>
         <img src="https://img.icons8.com/?size=100&id=34990&format=png&color=000000" alt="Timetable" className='icon' />
-        <a href="#timetable">Timetable</a>
+        <button onClick={() => navigate('/lecturer-timetable')} className="sidebar-btn">Timetable</button>
       </li>
       <li>
         <img src="https://img.icons8.com/?size=100&id=8080&format=png&color=000000" alt="Room Booking" className='icon' />
-        <a href="#booking">Room Booking</a>
-      </li>
-      <li>
-        <img src="https://img.icons8.com/?size=100&id=qvUK2KCJbwJa&format=png&color=000000" alt="Post Announcements" className='icon' />
-        <a href="#booking">Post Announcements</a>
+        <button onClick={() =>  navigate('/lecturer-room-booking')} className="sidebar-btn">Room Booking</button>
       </li>
       <li>
         <img src="https://img.icons8.com/?size=100&id=116946&format=png&color=000000" alt="Report Maintenance" className='icon' />
-        <a href="#maintenance">Report Maintenance</a>
+        <button onClick={() =>  navigate('/lecturer-report-maintanance')} className="sidebar-btn">Report Maintanance</button>
       </li>
       <li>
         <img src="https://img.icons8.com/?size=100&id=nJRLlq8KqcX5&format=png&color=000000" alt="Notifications" className='icon' />
-        <a href="#notifications">Notifications</a>
+        <button onClick={() =>  navigate('/post-announcements')} className="sidebar-btn">Post Announcements</button>
       </li>
       <li>
         <img src="https://img.icons8.com/?size=100&id=ShVC6pYnGs5L&format=png&color=000000" alt="Profile" className='icon' />
-        <a href="#profile">Profile</a>
+        <button onClick={() =>  navigate('/profile')} className="sidebar-btn">Profile</button>
       </li>
       <li>
         <img src="https://img.icons8.com/?size=100&id=Q1xkcFuVON39&format=png&color=000000" alt="Logout" className='icon' />
-        <a href="#logout">Logout</a>
+        <button onClick={() =>  navigate('/notifications')} className="sidebar-btn">Logout</button>
       </li>
     </ul>
   </nav>
-      </aside>
+</aside>
 
       {/* Main Content */}
       <main className='main-content'>

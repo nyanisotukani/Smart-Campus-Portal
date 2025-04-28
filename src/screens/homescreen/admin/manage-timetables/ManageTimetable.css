@@ -1,0 +1,298 @@
+/* Timetable Management Styles */
+.timetable-management {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    margin-top: 24px;
+  }
+  
+  .timetable-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .timetable-tabs {
+    display: flex;
+    background: #f5f7fa;
+    border-radius: 8px;
+    padding: 4px;
+  }
+  
+  .tab-btn {
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-weight: 500;
+    color: #64748b;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+  
+  .tab-btn.active {
+    background: #ffffff;
+    color: #3b82f6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .timetable-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .search-box {
+    position: relative;
+  }
+  
+  .search-box input {
+    padding: 8px 16px 8px 36px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    width: 200px;
+    transition: all 0.3s ease;
+  }
+  
+  .search-box input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    width: 250px;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+  }
+  
+  .add-btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .add-btn:hover {
+    background: #2563eb;
+  }
+  
+  .add-btn span {
+    font-size: 18px;
+  }
+  
+  /* Timetable Cards */
+  .timetable-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .timetable-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
+    background: #f8fafc;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  
+  .card-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #1e293b;
+  }
+  
+  .department-badge {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 12px;
+  }
+  
+  .card-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .edit-btn, .delete-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .edit-btn {
+    background: #e0f2fe;
+    color: #0ea5e9;
+    border: 1px solid #bae6fd;
+  }
+  
+  .edit-btn:hover {
+    background: #bae6fd;
+  }
+  
+  .delete-btn {
+    background: #fee2e2;
+    color: #ef4444;
+    border: 1px solid #fecaca;
+  }
+  
+  .delete-btn:hover {
+    background: #fecaca;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  /* Lecturer Timetable Styles */
+  .courses-list {
+    margin-bottom: 20px;
+  }
+  
+  .courses-list h4 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    color: #475569;
+  }
+  
+  .course-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .course-tag {
+    background: #f1f5f9;
+    color: #334155;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+  
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+  
+  .schedule-day {
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 8px;
+  }
+  
+  .schedule-day h5 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: #475569;
+    text-transform: capitalize;
+  }
+  
+  .schedule-day ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .schedule-day li {
+    font-size: 13px;
+    color: #64748b;
+    padding: 4px 0;
+  }
+  
+  .no-class {
+    color: #94a3b8;
+    font-size: 13px;
+    margin: 0;
+    font-style: italic;
+  }
+  
+  /* Student Timetable Styles */
+  .student-schedule {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .student-schedule th, .student-schedule td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  
+  .student-schedule th {
+    background: #f8fafc;
+    color: #475569;
+    font-weight: 500;
+  }
+  
+  .student-schedule tr:hover td {
+    background: #f8fafc;
+  }
+  
+  /* No Results */
+  .no-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+    text-align: center;
+  }
+  
+  .no-results img {
+    width: 120px;
+    opacity: 0.6;
+    margin-bottom: 16px;
+  }
+  
+  .no-results p {
+    color: #94a3b8;
+    font-size: 16px;
+    margin: 0;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .timetable-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .timetable-actions {
+      width: 100%;
+    }
+    
+    .search-box input {
+      width: 100%;
+    }
+    
+    .schedule-grid {
+      grid-template-columns: 1fr;
+    }
+  }

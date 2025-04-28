@@ -1,0 +1,214 @@
+/* Maintenance Dashboard Styles */
+.maintenance-dashboard {
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  .maintenance-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+  }
+  
+  .stat-card {
+    background: #f8f9fa;
+    padding: 15px 20px;
+    border-radius: 8px;
+    flex: 1;
+    margin: 0 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  .stat-card h3 {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .stat-number {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  
+  .maintenance-filters {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 15px;
+  }
+  
+  .filter-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .filter-group label {
+    margin-right: 10px;
+    font-weight: 500;
+    color: #555;
+  }
+  
+  .filter-group select {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background: #fff;
+  }
+  
+  .refresh-btn {
+    padding: 8px 15px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .refresh-btn:hover {
+    background: #2980b9;
+  }
+  
+  .maintenance-table-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+  }
+  
+  .maintenance-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .maintenance-table th, 
+  .maintenance-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .maintenance-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #444;
+  }
+  
+  .request-title {
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  
+  .request-description {
+    font-size: 13px;
+    color: #666;
+  }
+  
+  .priority-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .priority-high {
+    background: #ffecec;
+    color: #e74c3c;
+  }
+  
+  .priority-medium {
+    background: #fff8e6;
+    color: #f39c12;
+  }
+  
+  .priority-low {
+    background: #e8f5e9;
+    color: #27ae60;
+  }
+  
+  .status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .status-pending {
+    background: #ffecec;
+    color: #e74c3c;
+  }
+  
+  .status-in-progress {
+    background: #e3f2fd;
+    color: #1976d2;
+  }
+  
+  .status-completed {
+    background: #e8f5e9;
+    color: #27ae60;
+  }
+  
+  .actions-cell {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .status-select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+  
+  .delete-btn, .details-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .delete-btn:hover {
+    background: #ffecec;
+  }
+  
+  .details-btn:hover {
+    background: #e3f2fd;
+  }
+  
+  .quick-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .action-btn {
+    padding: 8px 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid #ddd;
+    background: #fff;
+  }
+  
+  .export-btn:hover {
+    background: #e3f2fd;
+    border-color: #bbdefb;
+  }
+  
+  .print-btn:hover {
+    background: #f5f5f5;
+    border-color: #e0e0e0;
+  }

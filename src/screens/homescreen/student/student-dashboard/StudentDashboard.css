@@ -14,108 +14,118 @@ body, h1, h2, h3, h4, p, ul {
     
   }
   
-  /* Sidebar Container */
+ /* Sidebar Container */
 .sidebar {
-    width: 250px;
-    background: linear-gradient(180deg, #925FE2 0%, #E2D4F7 100%);
-    color: white;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    border-radius: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    height: 85vh;
+  width: 250px;
+  background: linear-gradient(180deg, #925FE2 0%, #E2D4F7 100%);
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  height: 85vh;
+  font-weight: bold;
+}
+
+/* Sidebar Header */
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  max-width: 90px;
+  border-radius: 50%;
+  padding: 5px;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
+/* Navigation List */
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav ul li {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  transition: all 0.3s ease;
+}
+
+/* Icon Styling */
+.icon {
+  width: 22px;
+  height: 22px;
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+  filter: brightness(0) saturate(100%) invert(100%) grayscale(100%) contrast(100%) brightness(100%);
+}
+
+.icon:hover {
+  transform: scale(1.2);
+}
+
+/* Button Styling */
+.sidebar-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  text-transform: capitalize;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.sidebar-btn:hover {
+  background-color: transparent; /* Ensure no background on hover */
+  color: #381abc; /* Change text color on hover */
+  font-weight: bold;
+  border: none; /* Ensure no border on hover */
+}
+
+
+/* Hover Effect for List Items */
+.sidebar-nav ul li:hover {
+  background-color: rgba(255, 255, 255, 0.473);
+  border-radius: 8px;
+  padding-left: 10px;
+  height: 40px;
+}
+
+/* Responsive Adjustment for Smaller Screens */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    padding: 15px;
     
-  }
   
-  /* Sidebar Header */
-  .sidebar-header {
-    text-align: center;
-    margin-bottom: 30px;
   }
-  
-  .logo {
-    max-width: 90px;
-    border-radius: 50%;
-    
-    padding: 5px;
-    transition: transform 0.3s ease;
-  }
-  
-  .logo:hover {
-    transform: scale(1.1);
-  }
-  
-  /* Navigation List */
-  .sidebar-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
+
   .sidebar-nav ul li {
-    display: flex;
-    align-items: center;
-    margin: 20px 0;
-    transition: all 0.3s ease;
+    margin: 15px 0;
   }
-  
-  /* Icon Styling */
-  .icon {
-    width: 22px;
-    height: 22px;
-    margin-right: 10px;
-    transition: transform 0.3s ease;
-    filter: brightness(0) saturate(100%) invert(100%) grayscale(100%) contrast(100%) brightness(100%);
+
+  .logo {
+    max-width: 80px;
   }
-  
-  .icon:hover {
-    transform: scale(1.2);
-  }
-  
-  /* Links Styling */
-  .sidebar-nav ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-    font-weight: 500;
-    transition: color 0.3s ease;
-    text-transform: capitalize;
-  }
-  
-  /* Hover Effect for Links */
-  .sidebar-nav ul li a:hover {
-    color: #381abc;
-    font-weight: bold;
-  }
-  
-  /* Hover Effect for List Items */
-  .sidebar-nav ul li:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding-left: 10px;
-    height: 40px;
-  }
-  
-  /* Responsive Adjustment for Smaller Screens */
-  @media (max-width: 768px) {
-    .sidebar {
-      width: 100%;
-      height: auto;
-      border-radius: 0;
-      padding: 15px;
-    }
-  
-    .sidebar-nav ul li {
-      margin: 15px 0;
-    }
-  
-    .logo {
-      max-width: 80px;
-    }
-  }
-  
+}
+
+
   /* Main Content Styling */
   .main-content {
     flex: 1;
@@ -185,6 +195,7 @@ body, h1, h2, h3, h4, p, ul {
   .welcome-text p {
     font-size: 16px;
     color: white;
+    text-align: start;
   }
   
   .welcome-image {

@@ -1,255 +1,372 @@
-/* Page Layout */
-.booking-container {
-    padding: 2rem;
-    background: #f8f9fc;
-    min-height: 100vh;
-    font-family: 'Poppins', sans-serif;
-  }
-  
-  /* User Info Card */
-  .user-card {
-    background: linear-gradient(135deg, #6f86d6, #48c6ef);
-    color: white;
-    padding: 2rem;
-    border-radius: 15px;
-    margin-bottom: 2rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .user-card h2 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .user-card p {
-    font-size: 1.1rem;
-    opacity: 0.9;
-  }
-  
-  /* Room Cards Grid */
-  .rooms-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-  }
-  
-  /* Individual Room Card */
-  .room-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .room-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-  }
-  
-  .room-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #333;
-  }
-  
-  /* Status Text */
-  .available {
-    color: #2ecc71;
-    font-weight: bold;
-    margin-bottom: 1.5rem;
-  }
-  
-  .booked {
-    color: #e74c3c;
-    font-weight: bold;
-    margin-bottom: 1.5rem;
-  }
-  
-  /* Book Button */
-  .book-btn {
-    background-color: #3498db;
-    color: white;
-    padding: 0.7rem 1.5rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .book-btn:hover {
-    background-color: #2980b9;
-  }
-  
-  /* Booked Button (Disabled) */
-  .booked-btn {
-    background-color: #bdc3c7;
-    color: #7f8c8d;
-    padding: 0.7rem 1.5rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 10px;
-    cursor: not-allowed;
-  }
-  
-
-/* Popup Styling */
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
+/* Main Container */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
 }
 
-/* Popup container */
-.popup {
-    background: #fff;
-    padding: 30px 40px;
-    border-radius: 10px;
-    box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
-    text-align: center;
-    width: 400px;
-    max-width: 90%;
-    /* Ensure the popup stays in the center */
-    margin: 0 auto;
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f8f9fa;
 }
 
-/* Popup Heading */
-.popup h2 {
-    margin-bottom: 20px;
-    color: #333;
+/* Heading Section */
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
-/* Popup Paragraph */
-.popup p {
-    margin: 8px 0;
-    font-size: 16px;
+.heading h1 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
-/* Buttons Container */
-.popup-buttons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
+.student-info {
+  text-align: right;
 }
 
-/* Confirm Button */
-.confirm-btn {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 25px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+.student-info h2 {
+  color: #3498db;
+  margin: 0;
+  font-size: 1.4rem;
 }
 
-.confirm-btn:hover {
-    background-color: #218838;
+.student-info p {
+  color: #7f8c8d;
+  margin: 0;
+  font-size: 0.9rem;
 }
 
-/* Cancel Button */
-.cancel-btn {
-    background-color: #dc3545;
-    color: white;
-    padding: 10px 25px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+/* Welcome Section */
+.welcome-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(180deg, #925FE2 0%);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.cancel-btn:hover {
-    background-color: #c82333;
+.welcome-text h4.date {
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
 }
 
-/* Popup Styling */
+.welcome-text h1 {
+  font-size: 2.2rem;
+  margin: 0.5rem 0;
+}
+
+.welcome-text p {
+  font-size: 1rem;
+  opacity: 0.9;
+  max-width: 600px;
+}
+
+.welcome-image {
+  width: 150px;
+  height: auto;
+}
+
+/* Filter Section */
+.filter-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.filter-group label {
+  margin-right: 1rem;
+  font-weight: 500;
+  color: #2c3e50;
+  min-width: 80px;
+}
+
+.filter-group input[type="date"] {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border 0.3s;
+}
+
+.filter-group input[type="date"]:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+/* Rooms Grid */
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Room Card */
+.room-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.room-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.room-header {
+  padding: 1.5rem;
+  background: linear-gradient(180deg, #925FE2 0%);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.room-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: white;
+}
+
+.book-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background: #9616ff;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 30px;
+}
+
+.book-btn:hover {
+  background: #2980b9;
+}
+
+/* Modal Overlay */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
 }
 
-/* Modal container */
+/* Modal Content */
 .modal-content {
-    background: #fff;
-    padding: 30px 40px;
-    border-radius: 10px;
-    box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
-    text-align: center;
-    width: 400px;
-    max-width: 90%;
-    /* Ensure the modal stays in the center */
-    margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  position: relative;
 }
 
-/* Modal Heading */
+.close-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #7f8c8d;
+  transition: color 0.3s;
+}
+
+.close-modal:hover {
+  color: #e74c3c;
+}
+
 .modal-content h2 {
-    margin-bottom: 20px;
-    color: #333;
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
 }
 
-/* Modal Paragraph */
-.modal-content p {
-    margin: 8px 0;
-    font-size: 16px;
+/* Booking Form */
+.booking-form {
+  display: grid;
+  gap: 1.5rem;
 }
 
-/* Buttons Container */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.time-selection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Availability Calendar */
+.availability-calendar {
+  margin-top: 1rem;
+}
+
+.availability-calendar h4 {
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.time-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.8rem;
+}
+
+.time-slot {
+  padding: 0.6rem;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.time-slot.available {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+}
+
+.time-slot.available:hover {
+  background: #c8e6c9;
+}
+
+.time-slot.booked {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+  cursor: not-allowed;
+}
+
+.time-slot.selected {
+  background: #4caf50;
+  color: white;
+  font-weight: bold;
+}
+
+/* Modal Buttons */
 .modal-buttons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
-/* Confirm Button */
 .confirm-btn {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 25px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+  padding: 0.8rem 1.5rem;
+  background: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
 .confirm-btn:hover {
-    background-color: #218838;
+  background: #27ae60;
 }
 
-/* Cancel Button */
 .cancel-btn {
-    background-color: #dc3545;
-    color: white;
-    padding: 10px 25px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+  padding: 0.8rem 1.5rem;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
 .cancel-btn:hover {
-    background-color: #c82333;
+  background: #c0392b;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .welcome-section {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .welcome-image {
+    margin-top: 1rem;
+  }
+  
+  .time-selection {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-buttons {
+    justify-content: center;
+  }
 }

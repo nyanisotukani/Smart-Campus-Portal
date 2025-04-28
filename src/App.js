@@ -13,6 +13,11 @@ import ReportMaintenance from './screens/homescreen/student/report-maintanance/R
 import LecturerRoomBooking from './screens/homescreen/lecturer/room booking/LecturerRoomBooking';
 import LecturerReportMaintenance from './screens/homescreen/lecturer/report-maintanance/LecturerReportMaintenance ';
 import PostAnnouncements from './screens/homescreen/lecturer/post-announcements/PostAnnouncements';
+import ManageUser from './screens/homescreen/admin/manage-users/ManageUser';
+import ManageAnnouncements from './screens/homescreen/admin/manange-announcements/ManageAnnouncements';
+import ManageBookings from './screens/homescreen/admin/manage-bookings/ManageBookings';
+import ManageMaintanance from './screens/homescreen/admin/manage-maintanance/ManageMaintanance';
+import ManageTimetable from './screens/homescreen/admin/manage-timetables/ManageTimetable';
 
 
 
@@ -36,7 +41,14 @@ function App() {
           <Route path="/lecturer-report-maintanance" element={<LecturerReportMaintenance />} />
           <Route path="/post-announcements" element={<PostAnnouncements />} />
           
-          
+
+
+          {/* Admin */}
+          <Route path="/manage-users" element={<ManageUser />} />
+          <Route path="/manage-announcements" element={<ManageAnnouncements />} />
+          <Route path="/manage-bookings" element={<ManageBookings />} />
+          <Route path="/maintenance" element={<ManageMaintanance />} />
+          <Route path="/timetables" element={<ManageTimetable />} />
         </Routes>
       </div>
     </Router>
