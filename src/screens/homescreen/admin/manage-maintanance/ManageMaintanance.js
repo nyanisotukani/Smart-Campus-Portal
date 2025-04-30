@@ -24,7 +24,7 @@ const ManageMaintanance = () => {
       dateReported: "2023-05-15",
       status: "Pending",
       priority: "High",
-      category: "Equipment"
+     
     },
     {
       id: 2,
@@ -35,7 +35,7 @@ const ManageMaintanance = () => {
       dateReported: "2023-05-12",
       status: "In Progress",
       priority: "Medium",
-      category: "Facilities"
+      
     },
     {
       id: 3,
@@ -46,7 +46,7 @@ const ManageMaintanance = () => {
       dateReported: "2023-05-10",
       status: "Completed",
       priority: "High",
-      category: "HVAC"
+      
     },
     {
       id: 4,
@@ -57,7 +57,7 @@ const ManageMaintanance = () => {
       dateReported: "2023-05-14",
       status: "Pending",
       priority: "Low",
-      category: "Furniture"
+      
     },
     {
       id: 5,
@@ -68,7 +68,7 @@ const ManageMaintanance = () => {
       dateReported: "2023-05-13",
       status: "Pending",
       priority: "High",
-      category: "Security"
+      
     }
   ]);
 
@@ -104,14 +104,7 @@ const ManageMaintanance = () => {
     }
   };
 
-  const getStatusColor = (status) => {
-    switch(status) {
-      case "Pending": return "status-pending";
-      case "In Progress": return "status-in-progress";
-      case "Completed": return "status-completed";
-      default: return "";
-    }
-  };
+ 
 
 
 
@@ -254,11 +247,9 @@ const ManageMaintanance = () => {
                   <th>ID</th>
                   <th>Title</th>
                   <th>Location</th>
-                  <th>Category</th>
                   <th>Priority</th>
                   <th>Reported By</th>
                   <th>Date Reported</th>
-                  <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -271,7 +262,6 @@ const ManageMaintanance = () => {
                       <div className='request-description'>{request.description}</div>
                     </td>
                     <td>{request.location}</td>
-                    <td>{request.category}</td>
                     <td>
                       <span className={`priority-badge ${getPriorityColor(request.priority)}`}>
                         {request.priority}
@@ -279,11 +269,6 @@ const ManageMaintanance = () => {
                     </td>
                     <td>{request.reportedBy}</td>
                     <td>{request.dateReported}</td>
-                    <td>
-                      <span className={`status-badge ${getStatusColor(request.status)}`}>
-                        {request.status}
-                      </span>
-                    </td>
                     <td className='actions-cell'>
                       <select 
                         value={request.status}

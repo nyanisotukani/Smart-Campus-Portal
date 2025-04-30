@@ -69,7 +69,8 @@ const ManageTimetable = () => {
   
     const handleAddTimetable = () => {
       // Logic to add new timetable
-      console.log("Add new timetable");
+      navigate("/addnewtimetable");
+      
     };
   
     const handleEditTimetable = (id) => {
