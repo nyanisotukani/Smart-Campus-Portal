@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../../student/student-dashboard/StudentDashboard.css';
-
+import axios from 'axios';
 
 const LecturerReportMaintenance  = () => {
   const navigate = useNavigate();
@@ -11,6 +11,7 @@ const LecturerReportMaintenance  = () => {
     month: 'long',
     day: 'numeric'
   });
+
 
   
   const [user, setUser] = useState({
@@ -24,23 +25,37 @@ const LecturerReportMaintenance  = () => {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    // Simulate fetching user data
-    setUser({
-      name: "Nyaniso Tukani",
-      email: "nyaniso@example.com",
-    });
-  }, []);
+    
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (!storedUser) {
+      alert('Session expired. Please login again.');
+      navigate('/login');
+    } else {
+      setUser({
+        name: `${storedUser?.firstName} ${storedUser?.lastName}`,
+        email: storedUser?.email
+      });
+    }
+  }, [navigate]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Maintenance Report:', {
-      name: user.name,
-      email: user.email,
-      location: issue.location,
-      description: issue.description,
-    });
-    setShowPopup(true);
+    try {
+      const response = await axios.post('http://localhost:5000/api/maintenance', {
+        name: user.name,
+        email: user.email,
+        location: issue.location,
+        description: issue.description,
+      });
+  
+      console.log('Report submitted:', response.data);
+      setShowPopup(true);
+    } catch (error) {
+      console.error('Error submitting report:', error);
+      alert('Failed to submit report. Please try again later.');
+    }
   };
+  
 
   const closePopup = () => {
     setShowPopup(false);

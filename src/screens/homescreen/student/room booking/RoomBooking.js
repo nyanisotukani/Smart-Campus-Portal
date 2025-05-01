@@ -2,43 +2,50 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../student-dashboard/StudentDashboard.css';
 import './RoomBooking.css';
+import axios from 'axios'
 
 const RoomBooking = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const currentDate = new Date().toISOString().split('T')[0];
-  
-  const [user, setUser] = useState({
-    name: "",
-    surname: "",
-    email: "",
-  });
-
-  const [rooms] = useState([
-    { id: 1, name: "Study Room A"},
-    { id: 2, name: "Study Room B"},
-    { id: 3, name: "Conference Room 1"},
-    { id: 4, name: "Lab Room"},
-  ]);
-
+  const [rooms, setRooms] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [bookingDate, setBookingDate] = useState(currentDate);
   const [startTime, setStartTime] = useState("09:00");
   const [endTime, setEndTime] = useState("10:00");
   const [purpose, setPurpose] = useState("");
   const [availableSlots, setAvailableSlots] = useState([]);
+  const [user, setUser] = useState('')
+
 
   useEffect(() => {
     // Simulate fetching user data
-    setUser({
-      name: "Nyaniso",
-      surname: "Tukani",
-      email: "nyaniso@example.com",
-    });
 
+    const fetchRooms = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/booking/get-all-rooms')
+        setRooms(response.data)
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (!storedUser) {
+      alert('Session expired. Please login again.');
+      navigate('/login');
+    } else {
+      setUser(storedUser);
+    }
     // Simulate fetching available time slots
+    fetchRooms()
     generateTimeSlots();
-  }, []);
+  }, [navigate]);
 
   const generateTimeSlots = () => {
     // This would normally come from an API
@@ -57,21 +64,40 @@ const RoomBooking = () => {
     generateTimeSlots(); // Refresh slots when room changes
   };
 
-  const confirmBooking = () => {
-    // Here you would send the booking data to your backend
+  const confirmBooking = async () => {
+    if (!selectedRoom || !selectedRoom._id) {
+      alert('No room selected. Please choose a room to book.');
+      return;
+    }
+  const id = selectedRoom._id
     const bookingDetails = {
-      user,
-      room: selectedRoom,
+      user: {
+        id: user._id,
+        name: user.firstName,
+        surname: user.lastName,
+        email: user.email,
+        role: user.role
+      },
+      room: id,
       date: bookingDate,
       startTime,
       endTime,
       purpose
     };
-    
-    console.log("Booking confirmed:", bookingDetails);
-    alert(`Booking confirmed for ${selectedRoom.name} on ${bookingDate} from ${startTime} to ${endTime}`);
-    setSelectedRoom(null);
+  
+    console.log(selectedRoom._id)
+    try {
+      const response = await axios.post('http://localhost:5000/api/booking', bookingDetails);
+      alert(`Booking confirmed for ${selectedRoom.name} on ${bookingDate} from ${startTime} to ${endTime}`);
+      console.log("Server response:", response.data);
+      setSelectedRoom(null);
+    } catch (error) {
+      console.error('Booking failed:', error);
+      alert('Failed to book room. Please try again.');
+    }
   };
+  
+
 
   const closePopup = () => {
     setSelectedRoom(null);
@@ -137,13 +163,13 @@ const RoomBooking = () => {
             <h1>Book a Room</h1>
             <p>Browse available rooms and select your preferred time slot</p>
           </div>
-          <img src="../images/welcome.png" alt="Welcome" className='welcome-image'/>
+          <img src="../images/welcome.png" alt="Welcome" className='welcome-image' />
         </section>
 
         <section className='dashboard-widgets'>
           <div className="rooms-grid">
             {rooms.map((room) => (
-              <div key={room.id} className="room-card">
+              <div key={room._id} className="room-card">
                 <div className="room-header">
                   <h3>{room.name}</h3>
                 </div>
@@ -163,18 +189,18 @@ const RoomBooking = () => {
             <div className="modal-content">
               <button className="close-modal" onClick={closePopup}>×</button>
               <h2>Book {selectedRoom.name}</h2>
-              
+
               <div className="booking-form">
                 <div className="form-group">
                   <label>Date</label>
-                  <input 
-                    type="date" 
-                    value={bookingDate} 
+                  <input
+                    type="date"
+                    value={bookingDate}
                     onChange={(e) => setBookingDate(e.target.value)}
                     min={currentDate}
                   />
                 </div>
-                
+
                 <div className="time-selection">
                   <div className="form-group">
                     <label>Start Time</label>
@@ -186,7 +212,7 @@ const RoomBooking = () => {
                       ))}
                     </select>
                   </div>
-                  
+
                   <div className="form-group">
                     <label>End Time</label>
                     <select value={endTime} onChange={(e) => setEndTime(e.target.value)}>
@@ -198,17 +224,17 @@ const RoomBooking = () => {
                     </select>
                   </div>
                 </div>
-                
+
                 <div className="form-group">
                   <label>Purpose</label>
-                  <textarea 
-                    value={purpose} 
+                  <textarea
+                    value={purpose}
                     onChange={(e) => setPurpose(e.target.value)}
                     placeholder="Meeting, study session, etc."
                   />
                 </div>
               </div>
-              
+
               <div className="modal-buttons">
                 <button onClick={confirmBooking} className="confirm-btn">Confirm Booking</button>
                 <button onClick={closePopup} className="cancel-btn">Cancel</button>

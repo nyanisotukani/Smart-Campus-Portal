@@ -13,16 +13,18 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch('http://localhost:5000/api/login', {
+            const res = await fetch('http://localhost:5000/api/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             });
 
             const data = await res.json();
-
+            console.log(data)
             if (res.ok) {
-                const role = data.role?.toLowerCase();
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                const role = data.user?.role?.toLowerCase();
                 if (role === 'admin') navigate('/admin', { state: data });
                 else if (role === 'lecturer') navigate('/lecturer', { state: data });
                 else if (role === 'student') navigate('/student', { state: data });
@@ -33,7 +35,7 @@ const Login = () => {
         } catch (err) {
             console.error(err);
             alert('Server error');
-        }   
+        }
     };
 
     return (
@@ -43,7 +45,7 @@ const Login = () => {
                     <h2>Welcome Back</h2>
                     <p>Please enter your credentials to login</p>
                 </div>
-                
+
                 <form className="login-form" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="email">Email Address</label>
