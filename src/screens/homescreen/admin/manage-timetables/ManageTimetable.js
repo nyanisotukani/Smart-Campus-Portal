@@ -1,64 +1,21 @@
-import React, { useState } from 'react';
-import {  useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import "../../student/student-dashboard/StudentDashboard.css";
-import './ManageTimetable.css'; // Assuming you have a CSS file for styling
+import './ManageTimetable.css';
 
 const ManageTimetable = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
     const [activeTab, setActiveTab] = useState('lecturers');
     const [searchTerm, setSearchTerm] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     
-    // Sample timetable data
+    // State for timetables
     const [timetables, setTimetables] = useState({
-      lecturers: [
-        {
-          id: 1,
-          name: "Dr. Smith",
-          department: "Computer Science",
-          courses: ["CS101", "CS202"],
-          schedule: {
-            monday: ["9:00-11:00", "13:00-15:00"],
-            tuesday: ["10:00-12:00"],
-            wednesday: ["9:00-11:00"],
-            thursday: [],
-            friday: ["14:00-16:00"]
-          }
-        },
-        {
-          id: 2,
-          name: "Prof. Johnson",
-          department: "Mathematics",
-          courses: ["MATH201", "MATH305"],
-          schedule: {
-            monday: ["11:00-13:00"],
-            tuesday: ["9:00-11:00", "14:00-16:00"],
-            wednesday: [],
-            thursday: ["10:00-12:00", "13:00-15:00"],
-            friday: ["9:00-11:00"]
-          }
-        }
-      ],
-      students: [
-        {
-          id: 1,
-          program: "Computer Science",
-          year: "2023",
-          courses: [
-            { code: "CS101", name: "Intro to Programming", schedule: "Mon 9:00-11:00, Wed 9:00-11:00" },
-            { code: "MATH201", name: "Discrete Math", schedule: "Tue 9:00-11:00, Thu 10:00-12:00" }
-          ]
-        },
-        {
-          id: 2,
-          program: "Electrical Engineering",
-          year: "2023",
-          courses: [
-            { code: "EE201", name: "Circuit Theory", schedule: "Mon 13:00-15:00, Fri 14:00-16:00" },
-            { code: "MATH305", name: "Advanced Calculus", schedule: "Tue 14:00-16:00, Fri 9:00-11:00" }
-          ]
-        }
-      ]
+      lecturers: [],
+      students: []
     });
   
     const currentDate = new Date().toLocaleDateString('en-US', {
@@ -66,31 +23,130 @@ const ManageTimetable = () => {
       month: 'long',
       day: 'numeric'
     });
+
+    // Fetch timetables from API
+    useEffect(() => {
+      const fetchTimetables = async () => {
+        try {
+          setLoading(true);
+          // Get the auth token from localStorage
+          const token = localStorage.getItem('token');
+          
+          if (!token) {
+            navigate('/login');
+            return;
+          }
+
+          // Fetch all timetables
+          const response = await axios.get('http://localhost:5000/api/timetable', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+
+          if (response.data.success) {
+            // Separate the timetables by type
+            const lecturerTimetables = response.data.data.filter(
+              timetable => timetable.timetableType === 'lecturer'
+            );
+            
+            const studentTimetables = response.data.data.filter(
+              timetable => timetable.timetableType === 'student'
+            );
+
+            setTimetables({
+              lecturers: lecturerTimetables,
+              students: studentTimetables
+            });
+          }
+          
+          setLoading(false);
+        } catch (err) {
+          console.error('Error fetching timetables:', err);
+          setError('Failed to load timetables. Please try again later.');
+          setLoading(false);
+        }
+      };
+
+      fetchTimetables();
+    }, [navigate]);
   
     const handleAddTimetable = () => {
-      // Logic to add new timetable
-      console.log("Add new timetable");
+      navigate('/addnewtimetable');
     };
   
     const handleEditTimetable = (id) => {
-      // Logic to edit timetable
-      console.log("Edit timetable", id);
+      navigate(`/edit-timetable/${id}`);
     };
   
-    const handleDeleteTimetable = (id) => {
-      // Logic to delete timetable
-      console.log("Delete timetable", id);
-      setTimetables(prev => ({
-        ...prev,
-        [activeTab]: prev[activeTab].filter(item => item.id !== id)
-      }));
+    const handleDeleteTimetable = async (id) => {
+      try {
+        // Get the auth token from localStorage
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+          navigate('/login');
+          return;
+        }
+
+        // Confirm before deleting
+        if (!window.confirm('Are you sure you want to delete this timetable?')) {
+          return;
+        }
+
+        const response = await axios.delete(`http://localhost:5000/api/timetable/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        if (response.data.success) {
+          // Remove the deleted timetable from state
+          setTimetables(prev => ({
+            lecturers: prev.lecturers.filter(item => item._id !== id),
+            students: prev.students.filter(item => item._id !== id)
+          }));
+          
+          alert('Timetable deleted successfully');
+        }
+      } catch (err) {
+        console.error('Error deleting timetable:', err);
+        alert('Failed to delete timetable. Please try again.');
+      }
     };
   
-    const filteredTimetables = timetables[activeTab].filter(item => 
-      item.name?.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      item.program?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.department?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredTimetables = timetables[activeTab].filter(item => {
+      if (activeTab === 'lecturers') {
+        return (
+          item.lecturerDetails?.name?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+          item.lecturerDetails?.department?.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      } else {
+        return (
+          item.groupDetails?.program?.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+    });
+
+    // Helper function to format schedule for display
+    const formatSchedule = (timeSlots) => {
+      // Group time slots by day
+      const scheduleByDay = {
+        Monday: [],
+        Tuesday: [],
+        Wednesday: [],
+        Thursday: [],
+        Friday: [],
+        Saturday: [],
+        Sunday: []
+      };
+
+      timeSlots.forEach(slot => {
+        scheduleByDay[slot.day].push(`${slot.startTime}-${slot.endTime}`);
+      });
+
+      return scheduleByDay;
+    };
 
   return (
     <div className='dashboard-container'>
@@ -199,111 +255,143 @@ const ManageTimetable = () => {
           </div>
 
           <div className='timetable-content'>
-            {activeTab === 'lecturers' ? (
-              <div className='lecturer-timetables'>
-                {filteredTimetables.map(lecturer => (
-                  <div key={lecturer.id} className='timetable-card'>
-                    <div className='card-header'>
-                      <h3>{lecturer.name}</h3>
-                      <span className='department-badge'>{lecturer.department}</span>
-                      <div className='card-actions'>
-                        <button 
-                          className='edit-btn'
-                          onClick={() => handleEditTimetable(lecturer.id)}
-                        >
-                          Edit
-                        </button>
-                        <button 
-                          className='delete-btn'
-                          onClick={() => handleDeleteTimetable(lecturer.id)}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                    
-                    <div className='card-body'>
-                      <div className='courses-list'>
-                        <h4>Courses:</h4>
-                        <div className='course-tags'>
-                          {lecturer.courses.map(course => (
-                            <span key={course} className='course-tag'>{course}</span>
-                          ))}
-                        </div>
-                      </div>
-                      
-                      <div className='schedule-grid'>
-                        {Object.entries(lecturer.schedule).map(([day, slots]) => (
-                          <div key={day} className='schedule-day'>
-                            <h5>{day.charAt(0).toUpperCase() + day.slice(1)}</h5>
-                            {slots.length > 0 ? (
-                              <ul>
-                                {slots.map((slot, i) => (
-                                  <li key={i}>{slot}</li>
-                                ))}
-                              </ul>
-                            ) : (
-                              <p className='no-class'>No classes</p>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+            {loading ? (
+              <div className="loading-container">
+                <p>Loading timetables...</p>
+              </div>
+            ) : error ? (
+              <div className="error-container">
+                <p>{error}</p>
               </div>
             ) : (
-              <div className='student-timetables'>
-                {filteredTimetables.map(student => (
-                  <div key={student.id} className='timetable-card'>
-                    <div className='card-header'>
-                      <h3>{student.program} - Year {student.year}</h3>
-                      <div className='card-actions'>
-                        <button 
-                          className='edit-btn'
-                          onClick={() => handleEditTimetable(student.id)}
-                        >
-                          Edit
-                        </button>
-                        <button 
-                          className='delete-btn'
-                          onClick={() => handleDeleteTimetable(student.id)}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                    
-                    <div className='card-body'>
-                      <table className='student-schedule'>
-                        <thead>
-                          <tr>
-                            <th>Course Code</th>
-                            <th>Course Name</th>
-                            <th>Schedule</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {student.courses.map((course, i) => (
-                            <tr key={i}>
-                              <td>{course.code}</td>
-                              <td>{course.name}</td>
-                              <td>{course.schedule}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+              <>
+                {activeTab === 'lecturers' ? (
+                  <div className='lecturer-timetables'>
+                    {filteredTimetables.map((lecturer) => {
+                      const schedule = formatSchedule(lecturer.timeSlots || []);
+                      
+                      return (
+                        <div key={lecturer._id} className='timetable-card'>
+                          <div className='card-header'>
+                            <h3>{lecturer.lecturerDetails.name}</h3>
+                            <span className='department-badge'>{lecturer.lecturerDetails.department}</span>
+                            <div className='card-actions'>
+                              <button 
+                                className='edit-btn'
+                                onClick={() => handleEditTimetable(lecturer._id)}
+                              >
+                                Edit
+                              </button>
+                              <button 
+                                className='delete-btn'
+                                onClick={() => handleDeleteTimetable(lecturer._id)}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </div>
+                          
+                          <div className='card-body'>
+                            <div className='academic-info'>
+                              <p><strong>Academic Year:</strong> {lecturer.academicYear}</p>
+                              <p><strong>Semester:</strong> {lecturer.semester}</p>
+                            </div>
+                            <div className='courses-list'>
+                              <h4>Courses:</h4>
+                              <div className='course-tags'>
+                                {lecturer.courses && lecturer.courses.map((course, idx) => (
+                                  <span key={idx} className='course-tag'>{course}</span>
+                                ))}
+                                {(!lecturer.courses || lecturer.courses.length === 0) && (
+                                  <span className='no-courses'>No courses assigned</span>
+                                )}
+                              </div>
+                            </div>
+                            
+                            <div className='schedule-grid'>
+                              {Object.entries(schedule).map(([day, slots]) => (
+                                <div key={day} className='schedule-day'>
+                                  <h5>{day}</h5>
+                                  {slots.length > 0 ? (
+                                    <ul>
+                                      {slots.map((slot, i) => (
+                                        <li key={i}>{slot}</li>
+                                      ))}
+                                    </ul>
+                                  ) : (
+                                    <p className='no-class'>No classes</p>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
-                ))}
-              </div>
-            )}
-            
-            {filteredTimetables.length === 0 && (
-              <div className='no-results'>
-                <img src="../images/no-data.png" alt="No results" />
-                <p>No timetables found matching your search</p>
-              </div>
+                ) : (
+                  <div className='student-timetables'>
+                    {filteredTimetables.map((student) => (
+                      <div key={student._id} className='timetable-card'>
+                        <div className='card-header'>
+                          <h3>{student.groupDetails.program} - Year {student.groupDetails.year}</h3>
+                          <div className='card-actions'>
+                            <button 
+                              className='edit-btn'
+                              onClick={() => handleEditTimetable(student._id)}
+                            >
+                              Edit
+                            </button>
+                            <button 
+                              className='delete-btn'
+                              onClick={() => handleDeleteTimetable(student._id)}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                        
+                        <div className='card-body'>
+                          <div className='academic-info'>
+                            <p><strong>Academic Year:</strong> {student.academicYear}</p>
+                            <p><strong>Semester:</strong> {student.semester}</p>
+                          </div>
+                          <table className='student-schedule'>
+                            <thead>
+                              <tr>
+                                <th>Course Code</th>
+                                <th>Course Name</th>
+                                <th>Schedule</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {student.courses && student.courses.map((course, i) => (
+                                <tr key={i}>
+                                  <td>{course.code}</td>
+                                  <td>{course.name}</td>
+                                  <td>{course.schedule}</td>
+                                </tr>
+                              ))}
+                              {(!student.courses || student.courses.length === 0) && (
+                                <tr>
+                                  <td colSpan="3" className="no-courses">No courses available</td>
+                                </tr>
+                              )}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                
+                {filteredTimetables.length === 0 && (
+                  <div className='no-results'>
+                    <img src="../images/no-data.png" alt="No results" />
+                    <p>No timetables found matching your search</p>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </section>

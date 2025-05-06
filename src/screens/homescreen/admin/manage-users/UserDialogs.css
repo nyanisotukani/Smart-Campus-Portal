@@ -1,0 +1,266 @@
+/* Dialog Overlay */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Dialog Content */
+  .dialog-content {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  /* Dialog Header */
+  .dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .dialog-header h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #888;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+  }
+  
+  .close-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  /* Form Styles */
+  .user-form {
+    padding: 24px;
+  }
+  
+  .form-group {
+    margin-bottom: 16px;
+    flex: 1;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #444;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border 0.2s;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #4e8cff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(78, 140, 255, 0.1);
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 16px;
+  }
+  
+  /* Error states */
+  .input-error {
+    border-color: #ff4d4f !important;
+  }
+  
+  .error-text {
+    color: #ff4d4f;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    display: block;
+  }
+  
+  /* Dialog Actions */
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 16px;
+  }
+  
+  .cancel-btn,
+  .save-btn,
+  .delete-confirm-btn {
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .cancel-btn {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    color: #666;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #eaeaea;
+  }
+  
+  .save-btn {
+    background-color: #4e8cff;
+    border: 1px solid #4e8cff;
+    color: white;
+  }
+  
+  .save-btn:hover {
+    background-color: #3a7be8;
+  }
+  
+  .delete-confirm-btn {
+    background-color: #ff4d4f;
+    border: 1px solid #ff4d4f;
+    color: white;
+  }
+  
+  .delete-confirm-btn:hover {
+    background-color: #ff3639;
+  }
+  
+  /* Delete Dialog Styles */
+  .delete-dialog .dialog-body {
+    padding: 24px;
+    text-align: center;
+  }
+  
+  .warning-icon {
+    font-size: 3rem;
+    color: #ff4d4f;
+    margin-bottom: 16px;
+  }
+  
+  .warning-text {
+    color: #ff4d4f;
+    font-weight: 500;
+    margin-top: 8px;
+  }
+  
+  /* Status Dialog Styles */
+  .status-dialog .dialog-body {
+    padding: 24px;
+  }
+  
+  .status-options {
+    margin-top: 16px;
+  }
+  
+  .status-option {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    padding: 12px;
+    border: 1px solid #eaeaea;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  
+  .status-option:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .status-option input[type="radio"] {
+    margin-top: 4px;
+    margin-right: 12px;
+  }
+  
+  .status-option label {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    flex: 1;
+  }
+  
+  .status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 6px;
+    width: fit-content;
+  }
+  
+  .status-badge.active {
+    background-color: #e6f7e6;
+    color: #1e9e1e;
+  }
+  
+  .status-badge.inactive {
+    background-color: #ffd8d8;
+    color: #d82c2c;
+  }
+  
+  .status-badge.pending {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  
+  .status-desc {
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 600px) {
+    .form-row {
+      flex-direction: column;
+      gap: 0;
+    }
+    
+    .dialog-content {
+      width: 95%;
+    }
+  }

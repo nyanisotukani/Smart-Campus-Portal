@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../../student/student-dashboard/StudentDashboard.css";
 import './ManageBookings.css';
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const ManageBookings = () => {
   const navigate = useNavigate();
@@ -13,22 +14,69 @@ const ManageBookings = () => {
     day: 'numeric'
   });
 
-  const [bookings, setBookings] = useState([
-    { id: 1, room: "Room 101", time: "10:00 AM - 11:00 AM", date: "2023-05-15", status: "Pending", requestedBy: "John Doe" },
-    { id: 2, room: "Room 102", time: "2:00 PM - 3:30 PM", date: "2023-05-16", status: "Pending", requestedBy: "Jane Smith" },
-    { id: 3, room: "Room 103", time: "1:00 PM - 2:00 PM", date: "2023-05-15", status: "Pending", requestedBy: "Robert Johnson" },
-    { id: 4, room: "Auditorium", time: "9:00 AM - 12:00 PM", date: "2023-05-17", status: "Accepted", requestedBy: "University Events" },
-    { id: 5, room: "Lab 205", time: "3:00 PM - 5:00 PM", date: "2023-05-18", status: "Declined", requestedBy: "Physics Department" },
-  ]);
-
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [filter, setFilter] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleBookingStatusChange = (id, status) => {
-    const updatedBookings = bookings.map(booking => 
-      booking.id === id ? { ...booking, status } : booking
-    );
-    setBookings(updatedBookings);
+  // Fetch bookings from the server
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get('http://localhost:5000/api/booking/bookings', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        
+        // Transform the data to match our component structure
+        const formattedBookings = response.data.map(booking => ({
+          id: booking._id,
+          room: booking.roomDetails ? booking.roomDetails.name : 'Unknown Room',
+          date: booking.date,
+          time: `${booking.startTime} - ${booking.endTime}`,
+          status: booking.status || 'Pending',
+          requestedBy: booking.user ? `${booking.user.name || ''} ${booking.user.surname || ''}`.trim() : 'Unknown'
+        }));
+        
+        setBookings(formattedBookings);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching bookings:', err);
+        setError('Failed to load bookings. Please try again later.');
+        setLoading(false);
+      }
+    };
+
+    fetchBookings();
+  }, []);
+
+  const handleBookingStatusChange = async (id, status) => {
+    try {
+      // Update booking status on the server
+      await axios.patch(
+        `http://localhost:5000/api/booking/${id}/status`,
+        { status }, // this is the request body
+        {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        }
+      );
+      
+      
+      // Update local state
+      const updatedBookings = bookings.map(booking => 
+        booking.id === id ? { ...booking, status } : booking
+      );
+      
+      setBookings(updatedBookings);
+    } catch (err) {
+      console.error('Error updating booking status:', err);
+      alert('Failed to update booking status. Please try again.');
+    }
   };
 
   const filteredBookings = bookings.filter(booking => {
@@ -42,6 +90,24 @@ const ManageBookings = () => {
     Pending: "#FFA500", // Orange
     Accepted: "#4CAF50", // Green
     Declined: "#F44336", // Red
+  };
+
+  // Format date to display in a more readable format
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      // If direct parsing fails, try to parse YYYY-MM-DD format
+      const [year, month, day] = dateString.split('-');
+      return `${month}/${day}/${year}`;
+    }
+    
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
   };
 
   return (
@@ -153,69 +219,75 @@ const ManageBookings = () => {
           </div>
 
           <div className="bookings-table-container">
-            <table className='bookings-table'>
-              <thead>
-                <tr>
-                  <th>Room</th>
-                  <th>Date</th>
-                  <th>Time</th>
-                  <th>Requested By</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredBookings.length > 0 ? (
-                  filteredBookings.map((booking) => (
-                    <tr key={booking.id}>
-                      <td>{booking.room}</td>
-                      <td>{booking.date}</td>
-                      <td>{booking.time}</td>
-                      <td>{booking.requestedBy}</td>
-                      <td>
-                        <span 
-                          className="status-badge"
-                          style={{ backgroundColor: statusColors[booking.status] || "#777" }}
-                        >
-                          {booking.status}
-                        </span>
-                      </td>
-                      <td>
-                        {booking.status === "Pending" ? (
-                          <div className="action-buttons">
-                            <button 
-                              className="accept-btn" 
-                              onClick={() => handleBookingStatusChange(booking.id, "Accepted")}
-                            >
-                              Accept
-                            </button>
-                            <button 
-                              className="decline-btn" 
-                              onClick={() => handleBookingStatusChange(booking.id, "Declined")}
-                            >
-                              Decline
-                            </button>
-                          </div>
-                        ) : (
-                          <button 
-                            className="reset-btn" 
-                            onClick={() => handleBookingStatusChange(booking.id, "Pending")}
+            {loading ? (
+              <div className="loading-spinner">Loading bookings...</div>
+            ) : error ? (
+              <div className="error-message">{error}</div>
+            ) : (
+              <table className='bookings-table'>
+                <thead>
+                  <tr>
+                    <th>Room</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Requested By</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredBookings.length > 0 ? (
+                    filteredBookings.map((booking) => (
+                      <tr key={booking.id}>
+                        <td>{booking.room}</td>
+                        <td>{formatDate(booking.date)}</td>
+                        <td>{booking.time}</td>
+                        <td>{booking.requestedBy}</td>
+                        <td>
+                          <span 
+                            className="status-badge"
+                            style={{ backgroundColor: statusColors[booking.status] || "#777" }}
                           >
-                            Reset
-                          </button>
-                        )}
+                            {booking.status}
+                          </span>
+                        </td>
+                        <td>
+                          {booking.status === "Pending" ? (
+                            <div className="action-buttons">
+                              <button 
+                                className="accept-btn" 
+                                onClick={() => handleBookingStatusChange(booking.id, "Accepted")}
+                              >
+                                Accept
+                              </button>
+                              <button 
+                                className="decline-btn" 
+                                onClick={() => handleBookingStatusChange(booking.id, "Declined")}
+                              >
+                                Decline
+                              </button>
+                            </div>
+                          ) : (
+                            <button 
+                              className="reset-btn" 
+                              onClick={() => handleBookingStatusChange(booking.id, "Pending")}
+                            >
+                              Reset
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="6" className="no-results">
+                        No bookings found matching your criteria
                       </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="6" className="no-results">
-                      No bookings found matching your criteria
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  )}
+                </tbody>
+              </table>
+            )}
           </div>
         </section>
       </main>

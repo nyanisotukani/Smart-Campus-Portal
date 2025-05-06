@@ -18,6 +18,7 @@ import ManageAnnouncements from './screens/homescreen/admin/manange-announcement
 import ManageBookings from './screens/homescreen/admin/manage-bookings/ManageBookings';
 import ManageMaintanance from './screens/homescreen/admin/manage-maintanance/ManageMaintanance';
 import ManageTimetable from './screens/homescreen/admin/manage-timetables/ManageTimetable';
+import AddNewTimetable from './screens/homescreen/admin/manage-timetables/AddNewTimetable';
 
 
 
@@ -49,6 +50,7 @@ function App() {
           <Route path="/manage-bookings" element={<ManageBookings />} />
           <Route path="/maintenance" element={<ManageMaintanance />} />
           <Route path="/timetables" element={<ManageTimetable />} />
+          <Route path="/addnewtimetable" element={<AddNewTimetable />} />
         </Routes>
       </div>
     </Router>
