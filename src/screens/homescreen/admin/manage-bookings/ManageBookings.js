@@ -25,7 +25,7 @@ const ManageBookings = () => {
     const fetchBookings = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:5000/api/booking/bookings', {
+        const response = await axios.get('https://smart-campus-backend-gz8b.onrender.com/api/booking/bookings', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
@@ -57,7 +57,7 @@ const ManageBookings = () => {
     try {
       // Update booking status on the server
       await axios.patch(
-        `http://localhost:5000/api/booking/${id}/status`,
+        `https://smart-campus-backend-gz8b.onrender.com/api/booking/${id}/status`,
         { status }, // this is the request body
         {
           headers: {

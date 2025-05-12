@@ -42,7 +42,7 @@ const ReportMaintenance = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/maintenance', {
+      const response = await axios.post('https://smart-campus-backend-gz8b.onrender.com/api/maintenance', {
         name: user.name,
         email: user.email,
         location: issue.location,

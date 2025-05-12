@@ -38,7 +38,7 @@ const ManageTimetable = () => {
           }
 
           // Fetch all timetables
-          const response = await axios.get('http://localhost:5000/api/timetable', {
+          const response = await axios.get('https://smart-campus-backend-gz8b.onrender.com/api/timetable', {
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -94,7 +94,7 @@ const ManageTimetable = () => {
           return;
         }
 
-        const response = await axios.delete(`http://localhost:5000/api/timetable/${id}`, {
+        const response = await axios.delete(`https://smart-campus-backend-gz8b.onrender.com/api/timetable/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

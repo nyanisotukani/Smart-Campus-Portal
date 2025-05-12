@@ -37,7 +37,7 @@ const PostAnnouncements = () => {
     if (!user) return;
 
     try {
-      await axios.post('http://localhost:5000/api/announcement/create', {
+      await axios.post('https://smart-campus-backend-gz8b.onrender.com/api/announcement/create', {
         userId: user._id,
         name: user.firstName,
         surname: user.lastName,

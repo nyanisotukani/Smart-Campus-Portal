@@ -20,7 +20,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/auth/register', formData);
+            const response = await axios.post('https://smart-campus-backend-gz8b.onrender.com/api/auth/register', formData);
             console.log(response.data);
             alert(response.data.message);
             navigate('/login')

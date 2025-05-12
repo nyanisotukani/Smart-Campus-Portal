@@ -29,7 +29,7 @@ const ManageMaintanance = () => {
   const fetchMaintenanceRequests = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/api/maintenance');
+      const response = await axios.get('https://smart-campus-backend-gz8b.onrender.com/api/maintenance');
       // Transform the data to match our component's expected format
       const formattedData = response.data.map(item => ({
         id: item._id,
@@ -54,7 +54,7 @@ const ManageMaintanance = () => {
   // Update maintenance request status
   const handleStatusChange = async (id, newStatus) => {
     try {
-      await axios.patch(`http://localhost:5000/api/maintenance/${id}`, { status: newStatus });
+      await axios.patch(`https://smart-campus-backend-gz8b.onrender.com/api/maintenance/${id}`, { status: newStatus });
       setMaintenanceRequests(prev => 
         prev.map(request => 
           request.id === id ? {...request, status: newStatus} : request
@@ -70,7 +70,7 @@ const ManageMaintanance = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this maintenance request?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/maintenance/${id}`);
+        await axios.delete(`https://smart-campus-backend-gz8b.onrender.com/api/maintenance/${id}`);
         setMaintenanceRequests(prev => 
           prev.filter(request => request.id !== id)
         );

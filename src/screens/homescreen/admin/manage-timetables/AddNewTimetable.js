@@ -202,7 +202,7 @@ const AddNewTimetable = () => {
         
         // Make API call to create lecturer timetable
         response = await axios.post(
-          'http://localhost:5000/api/timetable/lecturer/create',
+          'https://smart-campus-backend-gz8b.onrender.com/api/timetable/lecturer/create',
           payload,
           {
             headers: {
@@ -222,7 +222,7 @@ const AddNewTimetable = () => {
         
         // Make API call to create student timetable
         response = await axios.post(
-          'http://localhost:5000/api/timetable/student/create',
+          'https://smart-campus-backend-gz8b.onrender.com/api/timetable/student/create',
           payload,
           {
             headers: {

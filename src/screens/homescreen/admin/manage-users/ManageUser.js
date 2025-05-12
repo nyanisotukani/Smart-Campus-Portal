@@ -45,7 +45,7 @@ const ManageUser = () => {
       if (filter !== 'all') params.append('role', filter);
       if (searchTerm) params.append('search', searchTerm);
       
-      const response = await fetch(`http://localhost:5000/api/admin/users?${params.toString()}`, {
+      const response = await fetch(`https://smart-campus-backend-gz8b.onrender.com/api/admin/users?${params.toString()}`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -86,7 +86,7 @@ const ManageUser = () => {
       setLoading(true);
       const token = localStorage.getItem('token');
       
-      const response = await fetch('http://localhost:5000/api/admin/users', {
+      const response = await fetch('https://smart-campus-backend-gz8b.onrender.com/api/admin/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ const ManageUser = () => {
       setLoading(true);
       const token = localStorage.getItem('token');
       
-      const response = await fetch(`http://localhost:5000/api/admin/users/${selectedUser._id}`, {
+      const response = await fetch(`https://smart-campus-backend-gz8b.onrender.com/api/admin/users/${selectedUser._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -154,7 +154,7 @@ const ManageUser = () => {
       setLoading(true);
       const token = localStorage.getItem('token');
       
-      const response = await fetch(`http://localhost:5000/api/admin/users/${selectedUser._id}`, {
+      const response = await fetch(`https://smart-campus-backend-gz8b.onrender.com/api/admin/users/${selectedUser._id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -187,7 +187,7 @@ const ManageUser = () => {
       setLoading(true);
       const token = localStorage.getItem('token');
       
-      const response = await fetch(`http://localhost:5000/api/admin/users/${selectedUser._id}/status`, {
+      const response = await fetch(`https://smart-campus-backend-gz8b.onrender.com/api/admin/users/${selectedUser._id}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

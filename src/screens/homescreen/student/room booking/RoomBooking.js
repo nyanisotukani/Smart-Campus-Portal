@@ -25,7 +25,7 @@ const RoomBooking = () => {
 
     const fetchRooms = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/booking/get-all-rooms')
+        const response = await axios.get('https://smart-campus-backend-gz8b.onrender.com/api/booking/get-all-rooms')
         setRooms(response.data)
       } catch (err) {
         console.error(err);
@@ -87,7 +87,7 @@ const RoomBooking = () => {
   
     console.log(selectedRoom._id)
     try {
-      const response = await axios.post('http://localhost:5000/api/booking', bookingDetails);
+      const response = await axios.post('https://smart-campus-backend-gz8b.onrender.com/api/booking', bookingDetails);
       alert(`Booking confirmed for ${selectedRoom.name} on ${bookingDate} from ${startTime} to ${endTime}`);
       console.log("Server response:", response.data);
       setSelectedRoom(null);
